@@ -1,65 +1,111 @@
-import Image from "next/image";
+//app/page.tsx
+"use client"
+
+import { useState, useMemo } from "react"
+import Link from "next/link"
+import Image from "next/image"
+import { motion } from "framer-motion"
+import { books } from "@/lib/books"
 
 export default function Home() {
+  const [search, setSearch] = useState("")
+
+  const filteredBooks = useMemo(() => {
+    return books.filter(
+      (book) =>
+        book.title.toLowerCase().includes(search.toLowerCase()) ||
+        book.author.toLowerCase().includes(search.toLowerCase()) ||
+        book.tags.some((tag) => tag.toLowerCase().includes(search.toLowerCase())),
+    )
+  }, [search])
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main className="min-h-screen bg-white">
+      {/* Header */}
+      <header className="border-b border-black/10 py-8 px-4">
+        <div className="max-w-6xl mx-auto">
+          <h1 className="font-serif text-5xl font-bold mb-2">SPOOKY REVIEWS</h1>
+          <p className="text-sm text-gray-600 font-sans">A minimalist literary journal</p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </header>
+
+      {/* Search Bar */}
+      <div className="border-b border-black/10 py-8 px-4 sticky top-0 bg-white z-10">
+        <div className="max-w-6xl mx-auto">
+          <input
+            type="text"
+            placeholder="Search books…"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="w-full px-4 py-3 border border-black/20 rounded-none focus:outline-none focus:ring-1 focus:ring-black text-base font-sans"
+          />
         </div>
-      </main>
-    </div>
-  );
+      </div>
+
+      {/* Books Grid */}
+      <section className="py-12 px-4">
+        <div className="max-w-6xl mx-auto">
+          {filteredBooks.length === 0 ? (
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center py-16">
+              <p className="text-gray-500 font-sans">No books found.</p>
+            </motion.div>
+          ) : (
+            <motion.div
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.4 }}
+            >
+              {filteredBooks.map((book, index) => (
+                <motion.div
+                  key={book.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.05, duration: 0.4 }}
+                >
+                  <Link href={`/books/${book.id}`}>
+                    <motion.div
+                      whileHover={{ scale: 1.02 }}
+                      className="group cursor-pointer transition-all duration-300"
+                    >
+                      {/* Book Cover */}
+                      <div className="relative aspect-[3/4] mb-4 overflow-hidden border border-black/10">
+                        <Image
+                          src={book.cover || "/placeholder.svg"}
+                          alt={book.title}
+                          fill
+                          className="object-cover group-hover:opacity-95 transition-opacity"
+                        />
+                      </div>
+
+                      {/* Book Info */}
+                      <div className="space-y-2">
+                        <h2 className="font-serif text-lg font-bold leading-tight group-hover:underline">
+                          {book.title}
+                        </h2>
+                        <p className="text-sm text-gray-700 font-sans">{book.author}</p>
+                        <p className="text-xs text-gray-500 font-sans">{book.year}</p>
+
+                        {/* Tags */}
+                        <div className="flex flex-wrap gap-2 pt-2">
+                          {book.tags.slice(0, 2).map((tag) => (
+                            <span
+                              key={tag}
+                              className="text-xs px-2 py-1 border border-black/10 text-black/70 font-sans"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </motion.div>
+                  </Link>
+                </motion.div>
+              ))}
+            </motion.div>
+          )}
+        </div>
+      </section>
+    </main>
+  )
 }
