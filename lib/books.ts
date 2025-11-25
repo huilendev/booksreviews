@@ -8,9 +8,9 @@ export const books = [
     cover: "/jennette.jpg",
     tags: ["Memoir", "Psychology", "Trauma"],
     rating: 5.5,
-    review: `# **I’m Glad My Mom Died**
+    review: `##  **I’m Glad My Mom Died** 
 
-**La culpa freudiana, el narcisismo materno y por qué le hablé a mi terapeuta sobre este libro.**
+## **La culpa freudiana, el narcisismo materno y por qué le hablé a mi terapeuta sobre este libro.**
 
 > “Según Freud, el sentimiento de culpa tiene un origen principalmente inconsciente y se relaciona con el superyó, el cual nace en la etapa del complejo de Edipo. La culpa surge de la lucha entre el deseo del ello y las exigencias morales del superyó, y se manifiesta como un ‘dolor psíquico’ que puede llevar a la necesidad de castigo. Freud distingue entre la culpa consciente y la inconsciente, siendo esta última la que resulta más significativa en el psicoanálisis y puede manifestarse en actos que buscan un alivio psíquico.
 El sentimiento de culpa tiene su raíz en el complejo de Edipo, donde el niño desarrolla sentimientos de hostilidad hacia el padre como rival de amor, pero renuncia a ellos para no ser castigado. Esta renuncia marca el origen del superyó, que internaliza las prohibiciones paternas.”
@@ -127,7 +127,7 @@ Así que gracias, Jennette, por tu honestidad, por tu humor, por tu valentía. Y
     title: "Normal People",
     author: "Sally Rooney",
     year: 2018,
-    cover: "/normal-people.jpg", 
+    cover: "/normalpeople.jpg", 
     tags: ["Fiction", "Romance", "Coming-of-age"],
     rating: 5.5, 
     review: `
@@ -135,7 +135,68 @@ Así que gracias, Jennette, por tu honestidad, por tu humor, por tu valentía. Y
 
 Cuando lo termine, voy a escribir una review completa.
 
-(Work in progress 🕯️📚)
+Work in progress 🕯️📚
 `,
-  },
+    },
+
+//   {
+//     id: "3",
+//     title: "Nuestra parte de noche",
+//     author: "Mariana Enriquez",
+//     year: 2019,
+//     cover: "/nuestrapartenoche.jpg", 
+//     tags: ["Terror", "Ficción gótica"],
+//     rating: 5.5, 
+//     review: `
+// # **Nuestra parte de noche** 
+
+
+// (Work in progress 🕯️📚)
+// `,
+//   },
+//     {
+//     id: "4",
+//     title: "11/22/63",
+//     author: "Stephen King ",
+//     year: 2011,
+//     cover: "/221163.jpg", 
+//     tags: ["Suspenso", "Ciencia ficción"],
+//     rating: 5.5, 
+//     review: `
+// # **11/22/63** 
+
+
+// (Work in progress 🕯️📚)
+// `,
+//   },
+//   {
+//     id: "5",
+//     title: "Poesia completa",
+//     author: "Jorge Luis Borges",
+//     year: 2013,
+//     cover: "/borges.jpg", 
+//     tags: ["Poesia", "Literatura argentina"],
+//     rating: 5.5, 
+//     review: `
+// # **Poesía Completa** 
+
+
+// (Work in progress 🕯️📚)
+// `,
+//   },
+//     {
+//     id: "6",
+//     title: "Un lugar para gente sombria",
+//     author: "Mariana Enriquez",
+//     year: 2024,
+//     cover: "/unlugar.jpg", 
+//     tags: ["Terror"],
+//     rating: 5.5, 
+//     review: `
+// # **Poesía Completa** 
+
+
+// (Work in progress 🕯️📚)
+// `,
+//   },
 ];
